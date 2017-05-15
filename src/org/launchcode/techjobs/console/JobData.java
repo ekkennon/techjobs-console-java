@@ -70,17 +70,39 @@ public class JobData {
         // load data, if not already loaded
         loadData();
 
+        //value = value.toLowerCase();
         ArrayList<HashMap<String, String>> jobs = new ArrayList<>();
 
         for (HashMap<String, String> row : allJobs) {
 
-            String aValue = row.get(column);
+            String aValue = row.get(column).toLowerCase();
 
             if (aValue.contains(value)) {
                 jobs.add(row);
             }
         }
 
+        return jobs;
+    }
+
+    public static ArrayList<HashMap<String, String>> findByValue(String value) {
+        loadData();
+
+        //value = value.toLowerCase();
+        ArrayList<HashMap<String, String>> jobs = new ArrayList<>();
+
+        for (HashMap<String, String> job : allJobs) {
+            boolean containsValue = false;
+            for (String key : job.keySet()) {
+                String aValue = job.get(key).toLowerCase();
+                if (aValue.contains(value)) {
+                    containsValue = true;
+                }
+            }
+            if (containsValue) {
+                jobs.add(job);
+            }
+        }
         return jobs;
     }
 
